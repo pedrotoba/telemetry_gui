@@ -1,12 +1,53 @@
 {
-  "name": "electron-quick-start",
-  "version": "1.0.0",
-  "description": "A minimal Electron application",
+  "name": "electron-serialport",
+  "version": "1.0.1",
+  "description": "A minimal Electron application with node serialport",
+  "license": "MIT",
   "main": "main.js",
-  "scripts": {
-    "start": "electron ."
+  "author": {
+    "name": "Peyo",
+    "email": "peyo@peyo.com"
   },
-  "repository": "https://github.com/electron/electron-quick-start",
+  "scripts": {
+    "postinstall": "install-app-deps",
+    "start": "electron .",
+    "install": "electron-rebuild",
+    "pack": "build --dir",
+    "dist": "build"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:johnny-five-io/electron-serialport.git"
+  },
+  "build": {
+    "appId": "buildtut",
+    "dmg": {
+      "contents": [
+        {
+          "x": 110,
+          "y": 150
+        },
+        {
+          "x": 240,
+          "y": 150,
+          "type": "link",
+          "path": "/Applications"
+        }
+      ]
+    },
+    "linux": {
+      "target": [
+        "deb",
+        "zip",
+        "AppImage"
+      ],
+      "maintainer": "peyo <peyo@peyo.com>"
+    },
+    "win": {
+      "target": "squirrel",
+      "icon": "build/icon.ico"
+    }
+  },
   "keywords": [
     "Electron",
     "quick",
@@ -17,6 +58,12 @@
   "author": "GitHub",
   "license": "CC0-1.0",
   "devDependencies": {
-    "electron": "~1.8.2"
+    "electron": "^1.4.1",
+    "electron-builder": "^20.5.1",
+    "electron-rebuild": "^1.4.0"
+  },
+  "dependencies": {
+    "data-table": "^2.0.0",
+    "serialport": "^4.0.7"
   }
 }

@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <!-- Tell the browser to be responsive to screen width -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <!-- Favicon icon -->
+    <link rel="icon" type="image/png" sizes="16x16" href="images/favicon.png">
+    <title>OpenTelemetry</title>
+
+    <link href="css/lib/chartist/chartist.min.css" rel="stylesheet">
+    <link href="css/lib/owl.carousel.min.css" rel="stylesheet" />
+    <link href="css/lib/owl.theme.default.min.css" rel="stylesheet" />
+    <!-- Bootstrap Core CSS -->
+    <link href="css/lib/bootstrap/bootstrap.min.css" rel="stylesheet">
+    <!-- Custom CSS -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <link href="css/helper.css" rel="stylesheet">
+    <link href="css/style.css" rel="stylesheet">
+    <!-- HTML5 Shim yand Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:** -->
+    <!--[if lt IE 9]>
+    <script src="https:**oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+    <script src="https:**oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+<![endif]-->
+        <!--<script src="../renderer.js"></script>-->
+        <script src="js/status.js"></script>
+        <script src="js/general_ipc.js"></script>
+</head>
+
+<body class="fix-header fix-sidebar">
+    <!-- Preloader - style you can find in spinners.css -->
+    <div class="preloader">
+        <svg class="circular" viewBox="25 25 50 50">
+            <circle class="path" cx="50" cy="50" r="20" fill="none" stroke-width="2" stroke-miterlimit="10" /> </svg>
+    </div>
+    <!-- Main wrapper  -->
+    <div id="main-wrapper">
+        <!-- header header  -->
+        <div class="header">
+            <nav class="navbar top-navbar navbar-expand-md navbar-light">
+                <!-- Logo -->
+                <div class="navbar-header">
+                    <a class="navbar-brand" href="index.html">
+                        <!-- Logo icon -->
+                        <b><img src="images/logo.png" alt="homepage" class="dark-logo" /></b>
+                        <!--End Logo icon -->
+                        <!-- Logo text -->
+                        <span><img src="images/logo-text.png" alt="homepage" class="dark-logo" /></span>
+                    </a>
+                </div>
+                <!-- End Logo -->
+                <div class="navbar-collapse">
+                    <!-- toggle and nav items -->
+                    <ul class="navbar-nav mr-auto mt-md-0">
+                        <!-- This is  -->
+                        <li class="nav-item"> <a class="nav-link nav-toggler hidden-md-up text-muted  " href="javascript:void(0)"><i class="mdi mdi-menu"></i></a> </li>
+                        <li class="nav-item m-l-10"> <a class="nav-link sidebartoggler hidden-sm-down text-muted  " href="javascript:void(0)"><i class="ti-menu"></i></a> </li>
+                    </ul>
+                    <!-- User profile and search -->
+                    <ul class="navbar-nav my-lg-0">
+                        <li class="nav-item">
+                            <div class="dropdown">
+                                        <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown"><i class="fa fa-usb"></i>
+                                                <span class="caret"></span></button>
+                                        <ul class="dropdown-menu">
+                                            <li><a onclick="select_port('tty1')" href="#">/dev/tty1</a></li>
+                                            <li><a onclick="select_port('tty2')" href="#">/dev/tty2</a></li>
+                                            <li><a onclick="select_port('tty3')" href="#">/dev/tty3</a></li>
+                                        </ul>
+                            </div>
+                        </li>
+                        <li class="nav-item" style="margin-left:10px;margin-top:6px">
+                            <span id="con_status" class="label label-danger">Disconnected</span>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+        </div>
+        <!-- End header header -->
+        <!-- Left Sidebar  -->
+        <div class="left-sidebar">
+            <!-- Sidebar scroll-->
+            <div class="scroll-sidebar">
+                <!-- Sidebar navigation-->
+                <nav class="sidebar-nav">
+                    <ul id="sidebarnav">
+                        <li class="nav-devider"></li>
+                        <li> <a class="" href="index.html" aria-expanded="false"><i class="fa fa-tachometer"></i><span class="hide-menu">Telemetry </span></a></li>
+                        <li> <a class="" href="status.html" aria-expanded="false"><i class="fa fa-list-ol"></i><span class="hide-menu">Status</span></a></li>
+                        <li> <a class="" href="settings.html" aria-expanded="false"><i class="fa fa-cogs"></i><span class="hide-menu">Settings</span></a>
+                        </li>
+                        <li> <a class="" href="export.html" aria-expanded="false"><i class="fa fa-file"></i><span class="hide-menu">Export</span></a>
+                        </li>
+                    </ul>
+                </nav>
+                <!-- End Sidebar navigation -->
+            </div>
+            <!-- End Sidebar scroll-->
+        </div>
+        <!-- End Left Sidebar  -->
+        <!-- Page wrapper  -->
+        <div class="page-wrapper" style="pointer-events: none;">
+            <div id="disabled-div" style="position:relative; z-index:1000; opacity:0.5;">
+            <!-- Bread crumb -->
+            <div class="row page-titles">
+                <div class="col-md-5 align-self-center">
+                    <h3 class="text-primary">Telemetry</h3> </div>
+                <div class="col-md-7 align-self-center">
+                </div>
+            </div>
+            <!-- End Bread crumb -->
+            <!-- Container fluid  -->
+            <div class="container-fluid">
+                <!-- Start Page Content -->
+                <div class="row">
+                    <div class="col-md-3">
+                        <div class="card bg-primary p-20">
+                            <div class="media widget-ten">
+                                <div class="media-left meida media-middle">
+                                    <span><i class="ti-bag f-s-40"></i></span>
+                                </div>
+                                <div class="media-body media-text-right">
+                                    <h2 class="color-white">278 km/h</h2>
+                                    <p class="m-b-0">Speed</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="card bg-pink p-20">
+                            <div class="media widget-ten">
+                                <div class="media-left meida media-middle">
+                                    <span><i class="ti-comment f-s-40"></i></span>
+                                </div>
+                                <div class="media-body media-text-right">
+                                    <h2 class="color-white">278</h2>
+                                    <p class="m-b-0">New Comment</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="card bg-success p-20">
+                            <div class="media widget-ten">
+                                <div class="media-left meida media-middle">
+                                    <span><i class="ti-vector f-s-40"></i></span>
+                                </div>
+                                <div class="media-body media-text-right">
+                                    <h2 class="color-white">$27647</h2>
+                                    <p class="m-b-0">Bounce Rate</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="card bg-danger p-20">
+                            <div class="media widget-ten">
+                                <div class="media-left meida media-middle">
+                                    <span><i class="ti-location-pin f-s-40"></i></span>
+                                </div>
+                                <div class="media-body media-text-right">
+                                    <h2 class="color-white">278</h2>
+                                    <p class="m-b-0">Total Visitor</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-lg-6">
+                        <div class="card">
+                            <div class="card-title">
+                                <h4>Position</h4>
+                            </div>
+                        </div>
+                        <!-- /# card -->
+                    </div>
+                    <!-- /# column -->
+                    <div class="col-lg-6">
+                        <div class="card">
+                            <div class="card-title">
+                                <h4>Streaming</h4>
+                            </div>
+                            <div class="card-body">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <!--Altittude-->
+                    <div class="col-lg-6">
+                        <div class="card">
+                            <div class="card-title">
+                                <h4>Altittude</h4>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="card">
+                            <div class="card-title">
+                                <h4>Speed</h4>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- /# column -->
+                </div>
+                <!-- /# row -->
+
+
+                <!-- End PAge Content -->
+            </div>
+            <!-- End Container fluid  -->
+            <!-- footer -->
+            </div>
+            <footer class="footer"> © 2018 All rights reserved. Template designed by <a href="https://colorlib.com">Colorlib</a></footer>
+            <!-- End footer -->
+        
+        </div>
+        <!-- End Page wrapper  -->
+    </div>
+    <!-- End Wrapper -->
+    <!-- All Jquery -->
+    <script src="js/lib/jquery/jquery.min.js"></script>
+    <!-- Bootstrap tether Core JavaScript -->
+    <script src="js/lib/bootstrap/js/popper.min.js"></script>
+    <script src="js/lib/bootstrap/js/bootstrap.min.js"></script>
+    <!-- slimscrollbar scrollbar JavaScript -->
+    <script src="js/jquery.slimscroll.js"></script>
+    <!--Menu sidebar -->
+    <script src="js/sidebarmenu.js"></script>
+    <!--stickey kit -->
+    <script src="js/lib/sticky-kit-master/dist/sticky-kit.min.js"></script>
+
+
+    <script src="js/lib/datamap/d3.min.js"></script>
+    <script src="js/lib/datamap/topojson.js"></script>
+    <script src="js/lib/datamap/datamaps.world.min.js"></script>
+    <script src="js/lib/datamap/datamap-init.js"></script>
+
+    <!--Custom JavaScript -->
+    <script src="js/custom.min.js"></script>
+
+</body>
+
+</html>
