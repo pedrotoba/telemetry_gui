@@ -1,9 +1,0 @@
-version: 1.0.1
-files:
-  - url: electron-serialport-1.0.1-x86_64.AppImage
-    sha512: sIQOQnDJ031ZiF8CucZ9TmHmP3zs5qliT8BxDLSvjyTE28alu0cs+k81D1aciukfu2QfG7vEZa4PuXMpmWs7ZA==
-    size: 48922607
-    blockMapSize: 51507
-path: electron-serialport-1.0.1-x86_64.AppImage
-sha512: sIQOQnDJ031ZiF8CucZ9TmHmP3zs5qliT8BxDLSvjyTE28alu0cs+k81D1aciukfu2QfG7vEZa4PuXMpmWs7ZA==
-releaseDate: '2018-03-16T08:35:45.636Z'
