@@ -20,15 +20,16 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <link href="css/helper.css" rel="stylesheet">
     <link href="css/style.css" rel="stylesheet">
-    <!-- HTML5 Shim yand Respond.js IE8 support of HTML5 elements and media queries -->
-    <!-- WARNING: Respond.js doesn't work if you view the page via file:** -->
-    <!--[if lt IE 9]>
-    <script src="https:**oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-    <script src="https:**oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
-<![endif]-->
-        <!--<script src="../renderer.js"></script>-->
-        <script src="js/index.js"></script>
-        <script src="js/general_ipc.js"></script>
+    <link href="css/gyro.css" rel="stylesheet">
+    <!--<script src="js/canvasjs.min.js"></script>-->
+    <script src="js/index.js"></script>
+    <script src="js/general_ipc.js"></script>
+
+    <script src="../node_modules/chart.js/dist/Chart.bundle.min.js"></script>
+    <script>
+        var map;
+        var marker;
+    </script>
 </head>
 
 <body class="fix-header fix-sidebar">
@@ -105,10 +106,9 @@
                         <li class="nav-devider"></li>
                         <li> <a class="" href="index.html" aria-expanded="false"><i class="fa fa-tachometer"></i><span class="hide-menu">Telemetry </span></a></li>
                         <li> <a class="" href="status.html" aria-expanded="false"><i class="fa fa-list-ol"></i><span class="hide-menu">Status</span></a></li>
-                        <li> <a class="" href="settings.html" aria-expanded="false"><i class="fa fa-cogs"></i><span class="hide-menu">Settings</span></a>
+                        <li> <a class="" href="report.html" aria-expanded="false"><i class="fa fa-file"></i><span class="hide-menu">Report</span></a>
                         </li>
-                        <li> <a class="" href="export.html" aria-expanded="false"><i class="fa fa-file"></i><span class="hide-menu">Export</span></a>
-                        </li>
+                        <!--<button onclick="show_serial_data()" >fasdsdf</button>-->
                     </ul>
                 </nav>
                 <!-- End Sidebar navigation -->
@@ -135,11 +135,11 @@
                         <div class="card bg-primary p-20">
                             <div class="media widget-ten">
                                 <div class="media-left meida media-middle">
-                                    <span><i class="ti-bag f-s-40"></i></span>
+                                    <span><i class="ti-dashboard f-s-40"></i></span>
                                 </div>
                                 <div class="media-body media-text-right">
-                                    <h2 class="color-white">278 km/h</h2>
-                                    <p class="m-b-0">Speed</p>
+                                    <h2 id="speed_box" class="color-white">---</h2>
+                                    <p  class="m-b-0">Speed</p>
                                 </div>
                             </div>
                         </div>
@@ -148,11 +148,11 @@
                         <div class="card bg-pink p-20">
                             <div class="media widget-ten">
                                 <div class="media-left meida media-middle">
-                                    <span><i class="ti-comment f-s-40"></i></span>
+                                    <span><i class="ti-cloud f-s-40"></i></span>
                                 </div>
                                 <div class="media-body media-text-right">
-                                    <h2 class="color-white">278</h2>
-                                    <p class="m-b-0">New Comment</p>
+                                    <h2 class="color-white">---</h2>
+                                    <p class="m-b-0">Altitude</p>
                                 </div>
                             </div>
                         </div>
@@ -161,11 +161,11 @@
                         <div class="card bg-success p-20">
                             <div class="media widget-ten">
                                 <div class="media-left meida media-middle">
-                                    <span><i class="ti-vector f-s-40"></i></span>
+                                    <span><i class="ti-ruler f-s-40"></i></span>
                                 </div>
                                 <div class="media-body media-text-right">
-                                    <h2 class="color-white">$27647</h2>
-                                    <p class="m-b-0">Bounce Rate</p>
+                                    <h2 id="gyro_temperature" class="color-white">---</h2>
+                                    <p class="m-b-0">Temperature</p>
                                 </div>
                             </div>
                         </div>
@@ -174,11 +174,11 @@
                         <div class="card bg-danger p-20">
                             <div class="media widget-ten">
                                 <div class="media-left meida media-middle">
-                                    <span><i class="ti-location-pin f-s-40"></i></span>
+                                    <span><i class="ti-cloud-down f-s-40"></i></span>
                                 </div>
                                 <div class="media-body media-text-right">
-                                    <h2 class="color-white">278</h2>
-                                    <p class="m-b-0">Total Visitor</p>
+                                    <h2 class="color-white">---</h2>
+                                    <p class="m-b-0">Pressure</p>
                                 </div>
                             </div>
                         </div>
@@ -191,6 +191,34 @@
                             <div class="card-title">
                                 <h4>Position</h4>
                             </div>
+                            <div id="gyro_block" class="row">
+                                <div class="col-md-6">
+                                    <div id="liveclock" class="outer_face">
+                                        <div class="marker oneseven"></div>
+                                        <div class="marker twoeight"></div>
+                                        <div class="marker fourten"></div>
+                                        <div class="marker fiveeleven"></div>
+                                 
+                                        <div class="inner_face roll_name">
+                                            <div id="roll_arrow" class="hand hour"></div>
+                                        </div>
+                                        <p id="roll_deg">---</p>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div id="liveclock_2" class="outer_face">
+                                        <div class="marker oneseven"></div>
+                                        <div class="marker twoeight"></div>
+                                        <div class="marker fourten"></div>
+                                        <div class="marker fiveeleven"></div>
+                                 
+                                        <div class="inner_face pitch_name">
+                                            <div id="pitch_arrow" class="hand hour"></div>
+                                        </div>
+                                        <p id="pitch_deg">---</p>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                         <!-- /# card -->
                     </div>
@@ -200,18 +228,27 @@
                             <div class="card-title">
                                 <h4>Streaming</h4>
                             </div>
-                            <div class="card-body">
-                                <video autoplay></video>
+                            <div id="no_camera_block">
+                                <p><i class="fa fa-camera"></i> No camera detected </p>
+                            </div>
+                            <div class="card-body" style="overflow: hidden">
+                                <video class="videoInsert" autoplay></video>
 							</div>
                         </div>
                     </div>
 				</div>
+
 				<div class="row">
-                    <!--Altittude-->
+                    <!--Altitude-->
                     <div class="col-lg-6">
                         <div class="card">
                             <div class="card-title">
-                                <h4>Altittude</h4>
+                                <h4>Map</h4>
+
+                                <script src='https://maps.googleapis.com/maps/api/js?v=3.exp&key=AIzaSyDP8LGnKZAgIY_HFnhHbbKGD1DfpVtr0oo'></script><div style='overflow:hidden;height:400px;width:100%px;'><div id='gmap_canvas' style='height:400px;width:100%px;'></div><style>#gmap_canvas img{max-width:none!important;background:none!important}</style></div></script>
+                                <script type='text/javascript'>
+                                    function init_map(){var myOptions = {zoom:12,center:new google.maps.LatLng(37.188395, -3.580715),mapTypeId: google.maps.MapTypeId.ROADMAP};map = new google.maps.Map(document.getElementById('gmap_canvas'), myOptions);marker = new google.maps.Marker({map: map,position: new google.maps.LatLng(37.188395, -3.580715)});infowindow = new google.maps.InfoWindow({content:'<strong>37.188395, -3.580715</strong>'});google.maps.event.addListener(marker, 'click', function(){infowindow.open(map,marker);});infowindow.open(map,marker);}google.maps.event.addDomListener(window, 'load', init_map);
+                                </script>
                             </div>
                         </div>
                     </div>
@@ -220,12 +257,54 @@
                             <div class="card-title">
                                 <h4>Speed</h4>
                             </div>
+                            <div id="speed_chart">
+                                <canvas id="myChart" width="400" height="400"></canvas>
+                                <script>
+                                var ctx = document.getElementById("myChart");
+                                var myChart = new Chart(ctx, {
+                                    type: 'line',
+                                    data: {
+                                        labels: ["00:00:00"],
+                                        datasets: [{
+                                            label: '1.0',
+                                            data: [5]
+                                        }]
+                                    },
+                                    options: {
+                                        scales: {
+                                            yAxes: [{
+                                                ticks: {
+                                                    beginAtZero:true
+                                                }
+                                            }]
+                                        }
+                                    }
+                                });
+                                </script>
+                            </div>
                         </div>
                     </div>
                     <!-- /# column -->
                 </div>
                 <!-- /# row -->
-
+                <div class="row">
+                    <!--Altitude-->
+                    <div class="col-lg-6">
+                        <div class="card">
+                            <div class="card-title">
+                                <!--<h4>Altitude</h4>-->
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="card">
+                            <div class="card-title">
+                                <!--<h4>Var</h4>-->
+                            </div>
+                        </div>
+                    </div>
+                    <!-- /# column -->
+                </div>
 
                 <!-- End PAge Content -->
             </div>

@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Lanzamiento #1</title>
+	<script type="text/javascript"></script>
+	<script src="js/report_template.js"></script>
+	<script>
+        var map;
+        var marker;
+    </script>
+</head>
+<body>
+	
+	<h2 id="id_l">Launch #1</h2>
+	<p id="local_time">Local Time: 00:00:00</p>
+	<p id="GMT_time">Hora GMT: 00:00:00</p>
+	<p id="date">Date: 00/00/00</p>
+
+	<h3>Data:</h3>
+
+	<p id="av_speed">Max Speed: ---</p>
+	<p id="av_height">Max Height: ---</p>
+	<p id="av_temp">Average temperature: ---</p>
+
+	<p id="last_position">Last position: ---</p>
+	<script src='https://maps.googleapis.com/maps/api/js?v=3.exp&key=AIzaSyDP8LGnKZAgIY_HFnhHbbKGD1DfpVtr0oo'></script><div style='overflow:hidden;height:400px;width:100%px;'><div id='gmap_canvas' style='height:400px;width:100%px;'></div><style>#gmap_canvas img{max-width:none!important;background:none!important}</style></div></script>
+    <script type='text/javascript'>
+        function init_map(){var myOptions = {zoom:12,center:new google.maps.LatLng(37.188395, -3.580715),mapTypeId: google.maps.MapTypeId.ROADMAP};map = new google.maps.Map(document.getElementById('gmap_canvas'), myOptions);marker = new google.maps.Marker({map: map,position: new google.maps.LatLng(37.248550,-3.652558)});infowindow = new google.maps.InfoWindow({content:'<strong>37.188395, -3.580715</strong>'});google.maps.event.addListener(marker, 'click', function(){infowindow.open(map,marker);});infowindow.open(map,marker);}google.maps.event.addDomListener(window, 'load', init_map);
+    </script>
+
+</body>
+</html>
+

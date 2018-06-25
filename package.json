@@ -2,12 +2,9 @@
   "name": "electron-serialport",
   "version": "1.0.1",
   "description": "A minimal Electron application with node serialport",
-  "license": "MIT",
+  "license": "CC0-1.0",
   "main": "main.js",
-  "author": {
-    "name": "Peyo",
-    "email": "peyo@peyo.com"
-  },
+  "author": "GitHub",
   "scripts": {
     "postinstall": "install-app-deps",
     "start": "electron .",
@@ -55,15 +52,16 @@
     "tutorial",
     "demo"
   ],
-  "author": "GitHub",
-  "license": "CC0-1.0",
   "devDependencies": {
     "electron": "^1.4.1",
     "electron-builder": "^20.5.1",
     "electron-rebuild": "^1.4.0"
   },
   "dependencies": {
+    "chart.js": "^2.7.2",
     "data-table": "^2.0.0",
+    "jspdf": "^1.4.1",
+    "nedb": "^1.8.0",
     "serialport": "^4.0.7"
   }
 }

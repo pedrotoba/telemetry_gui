@@ -6931,3 +6931,21 @@ tbody tr td:last-child {
   opacity:0.5;
   pointer-events: none;
 }
+
+.videoInsert {
+    position: relative; 
+    right: 0; 
+    bottom: 0;
+    min-width: 100%; 
+    min-height: 100%;
+    width: auto; 
+    height: auto; 
+    overflow: hidden;
+    /*z-index: -100;
+    background-size: cover;
+    overflow: hidden;*/
+}
+
+#no_camera_block{
+  text-align: center;
+}
